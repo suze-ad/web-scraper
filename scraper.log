@@ -1,0 +1,98 @@
+2026-02-14 18:59:00 [INFO    ] scraper_agent - ============================================================
+2026-02-14 18:59:00 [INFO    ] scraper_agent -   PRODUCT SCRAPING AGENT STARTED
+2026-02-14 18:59:00 [INFO    ] scraper_agent - ============================================================
+2026-02-14 18:59:00 [INFO    ] scraper_agent - Target URL: https://books.toscrape.com
+2026-02-14 18:59:02 [WARNING ] scraper_agent - Could not read robots.txt from https://books.toscrape.com/robots.txt: <urlopen error [Errno 11002] getaddrinfo failed>
+2026-02-14 18:59:02 [INFO    ] scraper_agent - Analyzing site type for: https://books.toscrape.com
+2026-02-14 18:59:02 [ERROR   ] scraper_agent - Error analyzing site https://books.toscrape.com: HTTPSConnectionPool(host='books.toscrape.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("HTTPSConnection(host='books.toscrape.com', port=443): Failed to resolve 'books.toscrape.com' ([Errno 11002] getaddrinfo failed)"))
+2026-02-14 18:59:02 [INFO    ] scraper_agent - Initializing dynamic scraper (browser-based)...
+2026-02-14 18:59:02 [WARNING ] scraper_agent - Dynamic scraper unavailable: No dynamic scraping engine available. Install playwright (`pip install playwright && playwright install`) or selenium (`pip install selenium`).
+2026-02-14 18:59:02 [INFO    ] scraper_agent - Falling back to static scraper...
+2026-02-14 18:59:02 [INFO    ] scraper_agent - --- Page 1 ---
+2026-02-14 18:59:02 [INFO    ] scraper_agent - Fetching: https://books.toscrape.com
+2026-02-14 18:59:15 [ERROR   ] scraper_agent - Connection error fetching https://books.toscrape.com: HTTPSConnectionPool(host='books.toscrape.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("HTTPSConnection(host='books.toscrape.com', port=443): Failed to resolve 'books.toscrape.com' ([Errno 11002] getaddrinfo failed)"))
+2026-02-14 18:59:15 [WARNING ] scraper_agent - Consecutive errors: 1/3
+2026-02-14 18:59:15 [WARNING ] scraper_agent - Retrying failed page...
+2026-02-14 18:59:15 [INFO    ] scraper_agent - --- Page 2 ---
+2026-02-14 18:59:15 [INFO    ] scraper_agent - Fetching: https://books.toscrape.com
+2026-02-14 18:59:35 [WARNING ] scraper_agent - No standard product containers found, attempting heuristic detection
+2026-02-14 18:59:35 [WARNING ] scraper_agent - No product containers found on page 2
+2026-02-14 18:59:35 [INFO    ] scraper_agent - Total: Scraped 0 products from 2 page(s)
+2026-02-14 18:59:35 [INFO    ] scraper_agent - Cleaning and normalizing data...
+2026-02-14 18:59:35 [WARNING ] scraper_agent - No products to convert to DataFrame
+2026-02-14 18:59:35 [INFO    ] scraper_agent - Scraping completed in 34.8s
+2026-02-14 18:59:35 [ERROR   ] scraper_agent - Scraping failed: 'charmap' codec can't encode character '\U0001f4ed' in position 2: character maps to <undefined>
+Traceback (most recent call last):
+  File [35m"C:\Users\hp\New folder (7)\scraper_agent\agent.py"[0m, line [35m141[0m, in [35mscrape[0m
+    [31mself.output_formatter.print_summary[0m[1;31m(df)[0m
+    [31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[1;31m^^^^[0m
+  File [35m"C:\Users\hp\New folder (7)\scraper_agent\output_formatter.py"[0m, line [35m172[0m, in [35mprint_summary[0m
+    [31mprint[0m[1;31m("\n📭 No products were scraped.")
+    [0m[31m~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3312.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py"[0m, line [35m19[0m, in [35mencode[0m
+    return [31mcodecs.charmap_encode[0m[1;31m(input,self.errors,encoding_table)[0m[0]
+           [31m~~~~~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1;35mUnicodeEncodeError[0m: [35m'charmap' codec can't encode character '\U0001f4ed' in position 2: character maps to <undefined>[0m
+2026-02-14 19:00:08 [INFO    ] scraper_agent - ============================================================
+2026-02-14 19:00:08 [INFO    ] scraper_agent -   PRODUCT SCRAPING AGENT STARTED
+2026-02-14 19:00:08 [INFO    ] scraper_agent - ============================================================
+2026-02-14 19:00:08 [INFO    ] scraper_agent - Target URL: http://books.toscrape.com
+2026-02-14 19:00:10 [INFO    ] scraper_agent - Loaded robots.txt from http://books.toscrape.com/robots.txt
+2026-02-14 19:00:10 [INFO    ] scraper_agent - Forced engine: static
+2026-02-14 19:00:10 [INFO    ] scraper_agent - Initializing static scraper (requests-based)...
+2026-02-14 19:00:11 [INFO    ] scraper_agent - --- Page 1 ---
+2026-02-14 19:00:11 [INFO    ] scraper_agent - Fetching: http://books.toscrape.com
+2026-02-14 19:00:13 [WARNING ] scraper_agent - No standard product containers found, attempting heuristic detection
+2026-02-14 19:00:13 [WARNING ] scraper_agent - No product containers found on page 1
+2026-02-14 19:00:13 [INFO    ] scraper_agent - Trying with broader search...
+2026-02-14 19:00:13 [INFO    ] scraper_agent - Total: Scraped 0 products from 1 page(s)
+2026-02-14 19:00:13 [INFO    ] scraper_agent - Cleaning and normalizing data...
+2026-02-14 19:00:13 [WARNING ] scraper_agent - No products to convert to DataFrame
+2026-02-14 19:00:13 [INFO    ] scraper_agent - Scraping completed in 4.2s
+2026-02-14 19:00:52 [INFO    ] scraper_agent - ============================================================
+2026-02-14 19:00:52 [INFO    ] scraper_agent -   PRODUCT SCRAPING AGENT STARTED
+2026-02-14 19:00:52 [INFO    ] scraper_agent - ============================================================
+2026-02-14 19:00:52 [INFO    ] scraper_agent - Target URL: http://books.toscrape.com
+2026-02-14 19:00:54 [INFO    ] scraper_agent - Loaded robots.txt from http://books.toscrape.com/robots.txt
+2026-02-14 19:00:54 [INFO    ] scraper_agent - Forced engine: static
+2026-02-14 19:00:54 [INFO    ] scraper_agent - Initializing static scraper (requests-based)...
+2026-02-14 19:00:54 [INFO    ] scraper_agent - --- Page 1 ---
+2026-02-14 19:00:54 [INFO    ] scraper_agent - Fetching: http://books.toscrape.com
+2026-02-14 19:00:55 [WARNING ] scraper_agent - No standard product containers found, attempting heuristic detection
+2026-02-14 19:00:55 [WARNING ] scraper_agent - No product containers found on page 1
+2026-02-14 19:00:55 [INFO    ] scraper_agent - Trying with broader search...
+2026-02-14 19:00:55 [INFO    ] scraper_agent - Total: Scraped 0 products from 1 page(s)
+2026-02-14 19:00:55 [INFO    ] scraper_agent - Cleaning and normalizing data...
+2026-02-14 19:00:55 [WARNING ] scraper_agent - No products to convert to DataFrame
+2026-02-14 19:00:55 [INFO    ] scraper_agent - Scraping completed in 2.9s
+2026-02-14 19:04:36 [INFO    ] scraper_agent - ============================================================
+2026-02-14 19:04:36 [INFO    ] scraper_agent -   PRODUCT SCRAPING AGENT STARTED
+2026-02-14 19:04:36 [INFO    ] scraper_agent - ============================================================
+2026-02-14 19:04:36 [INFO    ] scraper_agent - Target URL: http://books.toscrape.com
+2026-02-14 19:04:37 [INFO    ] scraper_agent - Loaded robots.txt from http://books.toscrape.com/robots.txt
+2026-02-14 19:04:37 [INFO    ] scraper_agent - Forced engine: static
+2026-02-14 19:04:37 [INFO    ] scraper_agent - Initializing static scraper (requests-based)...
+2026-02-14 19:04:38 [INFO    ] scraper_agent - --- Page 1 ---
+2026-02-14 19:04:38 [INFO    ] scraper_agent - Fetching: http://books.toscrape.com
+2026-02-14 19:04:39 [INFO    ] scraper_agent - Found 20 product containers with selector: [class*='product_pod']
+2026-02-14 19:04:39 [INFO    ] scraper_agent - Parsed 20 products from 20 containers
+2026-02-14 19:04:39 [INFO    ] scraper_agent - Page 1: Found 20 products
+2026-02-14 19:04:39 [INFO    ] scraper_agent - --- Page 2 ---
+2026-02-14 19:04:39 [INFO    ] scraper_agent - Fetching: http://books.toscrape.com/catalogue/page-2.html
+2026-02-14 19:04:40 [INFO    ] scraper_agent - Found 20 product containers with selector: [class*='product_pod']
+2026-02-14 19:04:40 [INFO    ] scraper_agent - Parsed 20 products from 20 containers
+2026-02-14 19:04:40 [INFO    ] scraper_agent - Page 2: Found 20 products
+2026-02-14 19:04:40 [INFO    ] scraper_agent - --- Page 3 ---
+2026-02-14 19:04:40 [INFO    ] scraper_agent - Fetching: http://books.toscrape.com/catalogue/page-3.html
+2026-02-14 19:04:43 [INFO    ] scraper_agent - Found 20 product containers with selector: [class*='product_pod']
+2026-02-14 19:04:43 [INFO    ] scraper_agent - Parsed 20 products from 20 containers
+2026-02-14 19:04:43 [INFO    ] scraper_agent - Page 3: Found 20 products
+2026-02-14 19:04:43 [INFO    ] scraper_agent - Reached maximum page limit (3)
+2026-02-14 19:04:43 [INFO    ] scraper_agent - No more pages to scrape
+2026-02-14 19:04:43 [INFO    ] scraper_agent - Total: Scraped 60 products from 3 page(s)
+2026-02-14 19:04:43 [INFO    ] scraper_agent - Cleaning and normalizing data...
+2026-02-14 19:04:43 [INFO    ] scraper_agent - Cleaned data: 60 products retained
+2026-02-14 19:04:43 [INFO    ] scraper_agent - Created DataFrame with 60 products and 6 columns
+2026-02-14 19:04:43 [INFO    ] scraper_agent - Exported 60 products to output\products.csv
+2026-02-14 19:04:43 [INFO    ] scraper_agent - CSV exported: output\products.csv
+2026-02-14 19:04:43 [INFO    ] scraper_agent - Scraping completed in 7.3s

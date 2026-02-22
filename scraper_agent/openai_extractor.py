@@ -10,17 +10,19 @@ from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger("scraper_agent")
 
-# Max chars to send per request (leave room for response)
-MAX_HTML_CHARS = 90_000
+# Max chars to send (smaller = faster API, fewer tokens)
+MAX_HTML_CHARS = 42_000
+
+# Fast strip of script/style/noscript without full HTML parse
+_SCRIPT_STYLE_RE = re.compile(
+    r"<(?:script|style|noscript)[^>]*>.*?</(?:script|style|noscript)>",
+    re.DOTALL | re.IGNORECASE,
+)
 
 
 def _trim_html(html: str, max_chars: int = MAX_HTML_CHARS) -> str:
-    """Remove script/style and truncate to fit context."""
-    from bs4 import BeautifulSoup
-    soup = BeautifulSoup(html, "lxml")
-    for tag in soup.find_all(["script", "style", "noscript"]):
-        tag.decompose()
-    text = str(soup)
+    """Remove script/style/noscript via regex and truncate. No BeautifulSoup."""
+    text = _SCRIPT_STYLE_RE.sub("", html)
     if len(text) <= max_chars:
         return text
     return text[:max_chars] + "\n... [truncated]"
@@ -44,18 +46,9 @@ def extract_products_with_openai(
 
     trimmed = _trim_html(html)
 
-    system = """You are an expert at extracting product listing data from HTML.
-Your task: from the HTML of a product listing page, extract every product/card/item.
-For each product return: name, price (as shown, e.g. "$19.99"), availability ("In Stock" or "Out of Stock" or "Unknown"), product_url (link to product page), image_url (main product image).
-If a field is missing, use null. Return ONLY a valid JSON array of objects, no markdown or explanation.
-Example: [{"name":"Product A","price":"$10.99","availability":"In Stock","product_url":"https://...","image_url":"https://..."}]"""
+    system = """Extract product listing data from HTML. For each product return: name, price (e.g. "$19.99"), availability ("In Stock"/"Out of Stock"/"Unknown"), product_url, image_url. Use null if missing. Return ONLY a JSON array, no markdown. Example: [{"name":"Product A","price":"$10.99","availability":"In Stock","product_url":"https://...","image_url":"https://..."}]"""
 
-    user = f"""Page URL: {page_url}
-
-HTML (excerpt):
-{trimmed}
-
-Extract all products. Return a JSON array only."""
+    user = f"URL: {page_url}\n\nHTML:\n{trimmed}\n\nExtract all products. JSON array only."
 
     client = OpenAI(api_key=api_key)
     resp = client.chat.completions.create(
@@ -65,6 +58,7 @@ Extract all products. Return a JSON array only."""
             {"role": "user", "content": user},
         ],
         temperature=0,
+        timeout=45.0,
     )
     content = (resp.choices[0].message.content or "").strip()
 
@@ -112,27 +106,9 @@ def analyze_brand_with_openai(
 
     trimmed = _trim_html(html)
 
-    system = """You are an expert at analyzing websites and summarizing brand identity.
-From the HTML provided, extract and infer:
+    system = """From HTML extract: brand_colors (hex codes, max 10), brand_tone (2-5 words), products_and_services (short phrases), target_audience (segments), brand_description (short paragraph), knowledge_base: {about: [], faqs: [], positioning: []}. Return only valid JSON with these keys, no markdown."""
 
-1. brand_colors: list of hex codes (e.g. ["#1a1a1a","#0066cc"]) that appear to be the main brand colors. Include theme-color if present. Max 10.
-2. brand_tone: list of 2-5 tone descriptors, e.g. ["Professional", "Friendly", "Minimal"].
-3. products_and_services: list of short phrases describing what they offer (e.g. "E-commerce", "SaaS platform", "Consulting").
-4. target_audience: list of audience segments (e.g. "Businesses", "Developers", "B2B").
-5. brand_description: one short paragraph summarizing the company/site (2-4 sentences).
-6. knowledge_base: object with three arrays:
-   - about: 1-3 sentences about the company/mission.
-   - faqs: any FAQ questions (and answers if visible) as short strings.
-   - positioning: key value props, taglines, or differentiators (short phrases).
-
-Return ONLY valid JSON with these exact keys. No markdown, no explanation."""
-
-    user = f"""URL: {url}
-
-HTML (excerpt):
-{trimmed}
-
-Analyze and return the JSON object only."""
+    user = f"URL: {url}\n\nHTML:\n{trimmed}\n\nAnalyze and return JSON only."
 
     client = OpenAI(api_key=api_key)
     resp = client.chat.completions.create(
@@ -142,6 +118,7 @@ Analyze and return the JSON object only."""
             {"role": "user", "content": user},
         ],
         temperature=0,
+        timeout=45.0,
     )
     content = (resp.choices[0].message.content or "").strip()
     content = re.sub(r"^```(?:json)?\s*", "", content)
